@@ -1,3 +1,4 @@
+
 # Installing UDOIT in Canvas
 Once UDOIT has been installed on a public web server the following steps must be completed to add UDOIT to your Canvas LMS.
 * Create an API developer key
@@ -9,119 +10,115 @@ Once UDOIT has been installed on a public web server the following steps must be
 * Ability to insert MySQL
 
 ## Create an API Developer Key
-UDOIT requires an API developer key, since all course data is gathered through the Canvas API.
+The API Key UDOIT requires an API developer key, since all course data is gathered through the Canvas API.
 
-### Steps to Create an API Key
-* Navigate to `Developer Keys` in the root account menu.
-* Choose to add a `Developer Key` => `API Key`
-
-Provide values for the following fields:
-* Key Name
-    * i.e. UDOIT 3 API
-* Owner Email
-* Redirect URIs
-    * <YOUR_UDOIT_BASE_URL>/authorize/check
-* Redirect URL (Legacy) : *SKIP*
-* Vendor Code : *SKIP*
-* Icon URL
-    * <YOUR_UDOIT_BASE_URL>/build/static/udoit_logo.svg
-* Notes : *Optional*
-    * These are only seen by other LMS admins
-* Test Cluster Only : *SKIP*
-* Client Credentials
-    * Canvas
-* Enforce Scopes
-    * See section below for a list of scopes to enable.
-    * Check `Allow Include Parameters`
-* Save
-* Click `ON` to enable the newly created key
-
-### Scopes
-We strongly recommend you enforce scopes with your API key. The following scopes must be enabled for UDOIT to work.
-
-* accounts
-  * url:GET|/api/v1/accounts
-  * url:GET|/api/v1/accounts/:id
-  * url:GET|/api/v1/accounts/:account_id/sub_accounts
-* announcements_api
-  * url:GET|/api/v1/announcements
-* assignments_api
-  * url:GET|/api/v1/courses/:course_id/assignments
-  * url:GET|/api/v1/courses/:course_id/assignments/:id
-  * url:PUT|/api/v1/courses/:course_id/assignments/:id
-* courses
-  * url:PUT|/api/v1/courses/:id
-  * url:GET|/api/v1/courses/:id
-  * url:POST|/api/v1/courses/:course_id/files
-* discussion_topics
-  * url:GET|/api/v1/courses/:course_id/discussion_topics
-  * url:PUT|/api/v1/courses/:course_id/discussion_topics/:topic_id
-* discussion_topics_api
-  * url:GET|/api/v1/courses/:course_id/discussion_topics/:topic_id
-* files
-  * url:GET|/api/v1/courses/:course_id/files
-  * url:GET|/api/v1/courses/:course_id/files/:id
-* context_module_items_api
-  * url:GET|/api/v1/courses/:course_id/modules/:module_id/items
-  * url:GET|/api/v1/courses/:course_id/modules/:module_id/items/:id
-  * url:PUT|/api/v1/courses/:course_id/modules/:module_id/items/:id
-* context_modules_api
-  * url:GET|/api/v1/courses/:course_id/modules
-  * url:GET|/api/v1/courses/:course_id/modules/:id
-  * url:PUT|/api/v1/courses/:course_id/modules/:id
-* quizzes/quiz_questions
-  * url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/questions
-  * url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/questions/:id
-  * url:PUT|/api/v1/courses/:course_id/quizzes/:quiz_id/questions/:id
-* quizzes/quizzes_api
-  * url:GET|/api/v1/courses/:course_id/quizzes
-  * url:GET|/api/v1/courses/:course_id/quizzes/:id
-  * url:PUT|/api/v1/courses/:course_id/quizzes/:id
-* terms_api
-  * url:GET|/api/v1/accounts/:account_id/terms
-* users
-  * url:GET|/api/v1/users/:id
-* wiki_pages_api
-  * url:GET|/api/v1/courses/:course_id/pages
-  * url:GET|/api/v1/courses/:course_id/pages/:url_or_id
-  * url:PUT|/api/v1/courses/:course_id/pages/:url_or_id
-
----
-## Create an LTI Developer Key
-UDOIT uses LTI 1.3 to integrate with the LMS.
+1. Navigate to `Developer Keys` in the root account menu.
+	- For UCF, this is `Admin` -> `CDL Canvas` -> `Developer Keys`
+2. Click on `+ Developer Key` -> `+ API Key`.
+3. Modify the following fields:
+	- Key Name: Set this as the key name of your UDOIT instance. (e.g. UDOIT 3 API)
+	- Owner Email: Set this as the email address of this UDOIT instance's admin.
+	- Redirect URIs: `http://<YOUR_UDOIT_BASE_URL>/authorize/check`
+	    - For local Docker instance, this is `http://127.0.0.0.1:8000/authorize/check`
+    -  Icon URL: `<YOUR_UDOIT_BASE_URL>/build/static/udoit_logo.svg`
+	    - For local Docker instance, this is `http://127.0.0.0.1:8000/build/static/udoit_logo.svg`
+	 - Enforce Scopes: While it is not necessary for UDOIT's functionality, we strongly recommend doing so for security. The following scopes must be enabled for UDOIT to work:
+         - <details>
+            <summary>Scopes</summary>
+            
+            - accounts
+                 - url:GET|/api/v1/accounts
+                 - url:GET|/api/v1/accounts/:id
+                 - url:GET|/api/v1/accounts/:account_id/sub_accounts
+            - announcements_api
+               - url:GET|/api/v1/announcements
+            - assignments_api
+              - url:GET|/api/v1/courses/:course_id/assignments
+              - url:GET|/api/v1/courses/:course_id/assignments/:id
+              - url:PUT|/api/v1/courses/:course_id/assignments/:id
+            - courses
+               - url:PUT|/api/v1/courses/:id
+               - url:GET|/api/v1/courses/:id
+               - url:POST|/api/v1/courses/:course_id/files
+            - discussion_topics
+               - url:GET|/api/v1/courses/:course_id/discussion_topics
+               - url:PUT|/api/v1/courses/:course_id/discussion_topics/:topic_id
+            - discussion_topics_api
+               - url:GET|/api/v1/courses/:course_id/discussion_topics/:topic_id
+            - files
+               - url:GET|/api/v1/courses/:course_id/files
+            	- url:GET|/api/v1/courses/:course_id/files/:id
+            - context_module_items_api
+               - url:GET|/api/v1/courses/:course_id/modules/:module_id/items
+            	- url:GET|/api/v1/courses/:course_id/modules/:module_id/items/:id
+            	- url:PUT|/api/v1/courses/:course_id/modules/:module_id/items/:id
+            - context_modules_api
+               -  url:GET|/api/v1/courses/:course_id/modules
+            	- url:GET|/api/v1/courses/:course_id/modules/:id
+            	- url:PUT|/api/v1/courses/:course_id/modules/:id
+            - quizzes/quiz_questions
+               - url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/questions
+               - url:GET|/api/v1/courses/:course_id/quizzes/:quiz_id/questions/:id
+               - url:PUT|/api/v1/courses/:course_id/quizzes/:quiz_id/questions/:id
+            - quizzes/quizzes_api
+               - url:GET|/api/v1/courses/:course_id/quizzes
+               - url:GET|/api/v1/courses/:course_id/quizzes/:id
+               - url:PUT|/api/v1/courses/:course_id/quizzes/:id
+            - terms_api
+               - url:GET|/api/v1/accounts/:account_id/terms
+            - users
+               - url:GET|/api/v1/users/:id
+            - wiki_pages_api
+               - url:GET|/api/v1/courses/:course_id/pages
+            	- url:GET|/api/v1/courses/:course_id/pages/:url_or_id
+            	- url:PUT|/api/v1/courses/:course_id/pages/:url_or_id
+                
+            </details>
+      - Click Save.
+      - Change the 'State' to ON for the key.
+## Create an LTI Key
+This is the key used to uniquely identify UDOIT. UDOIT uses LTI 1.3 to integrate with Canvas.
 
 ### Steps to Create an LTI Key
 Follow the steps below, replacing `<YOUR_UDOIT_BASE_URL>` with the `BASE_URL` value from your `.env.local` file.
 
 1. Navigate to `Developer Keys` in the root account menu.
-2. Choose to add a `Developer Key` => `LTI Key`
+	- For UCF, this is `Admin` -> `CDL Canvas` -> `Developer Keys`
+2. Click on `+ Developer Key` -> `+ LTI Key`.
+3. Modify the following fields:
+   - Key Name: Set this as the key name of your UDOIT instance. (e.g. UDOIT 3 LTI)
+	- Owner Email: Set this as the email address of this UDOIT instance's admin.
+   - Redirect URIs: `http://<YOUR_UDOIT_BASE_URL>/authorize/check`
+      - For local Docker instance, this is `http://127.0.0.0.1:8000/authorize/check`
+   - Method: Manual entry
+   - Title: Set this as the name of your UDOIT instance. (e.g. UDOIT 3)
+   - Description: Set this as you see fit.
+   - Target Link URI: `http://<YOUR_UDOIT_BASE_URL>/udoit3/dashboard`
+      - For local Docker instance, this is `http://127.0.0.1.:8000/udoit3/dashboard`
+   - OpenID Connect Initiation Url: `http://<YOUR_UDOIT_BASE_URL>/udoit3/lti/authorize`
+      - For local Docker instance, this is `http://127.0.0.1.:8000/udoit3/lti/authorize`
+   - JWK Method: Public JWK URL
+   - Public JWK URL: `<CANVAS_URL>/lti/config`
+      - For UCF, this is `https://canvas.instructure.com/udoit3/api/lti/security/jwks`
+      - If your instance of Canvas is self-hosted, modify the URL under **JWK Method** to point to your canvas instance.
+   - Additional Settings
+      - Domain: `http://<YOUR_UDOIT_BASE_URL>/udoit3`
+         - For local Docker instance, this is `http://127.0.0.1.:8000/udoit3`
+         - Custom Fields
+            ```
+            lms_id=canvas
+            lms_user_id=$Canvas.user.id
+            lms_course_id=$Canvas.course.id
+            lms_api_domain=$Canvas.api.domain
+            ```
+            - other fields are optional.
+      - 
+   - Click Save.
+   - Change the 'State' to ON for the key.
+   - Placement
 
-Provide values for the following fields:
-* Key Name
-    * i.e. UDOIT 3 LTI
-* Owner Email
-* Redirect URIs
-    * <YOUR_UDOIT_BASE_URL>/lti/authorize/check
-* Notes : *Optional*
-    * These are only seen by other LMS admins
-* Configure method
-    * Enter URL
-* JSON URL
-    * <YOUR_UDOIT_BASE_URL>/lti/config
-* Click Save.  Reload the page, then edit the LTI key you just created.
-* If your instance of Canvas is self-hosted, modify the URL under **JWK Method** to point to your canvas instance.
-* Set Additional Settings
-    * Domain
-      * Your UDOIT domain
-    * Tool ID
-      * Enter a name
-    * Custom Fields
-```
-lms_id=canvas
-lms_user_id=$Canvas.user.id
-lms_course_id=$Canvas.course.id
-lms_api_domain=$Canvas.api.domain
-```
+
+
 * Save
 * Click `ON` to enable the newly created key
 
@@ -131,7 +128,7 @@ If you are setting up UDOIT for local development through `docker compose`, <YOU
 
 ---
 ## Update the Institutions Table
-UDOIT is built to support more than one LMS instance. For this purpose we have an `institution` table that must be populated with the LMS information.
+UDOIT is built to support more than one LMS instance. For this purpose, you currently have to insert LMS information to the `institution` table manually. For default database setup(MySQL) on MacOS, we recommend using [Sequel Ace](https://apps.apple.com/us/app/sequel-ace/id1518036000?mt=12) to interact with the database.
 
 **Note:** This step requires knowledge of MySQL.
 
